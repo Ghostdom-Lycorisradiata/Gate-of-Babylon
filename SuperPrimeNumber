@@ -1,0 +1,46 @@
+#include <iostream>
+#include<stdio.h>
+
+int isprime(int m){//构造判断素数函数 
+	int num=0,t;
+	for(t=2;t<m;t++){
+		if(m%t==0){
+			num++;
+		}
+	}
+	if(num==0){
+		return 1;
+	}
+	else{
+		return 0;
+	}	
+}
+
+int main() 
+{
+	int count=0,sum=0,max=0;
+	int i,b,s,g,isum,iproduct,isquare;
+	for(i=100;i<=999;i++){
+		b=i/100;
+		s=(i%100)/10;
+		g=i%10;
+		isum=b+s+g;
+		iproduct=b*s*g;
+		isquare=b*b+s*s+g*g;
+		if(isprime(i)){//判断该数本身是素数 
+			if(isprime(isum)){//判断该数所有数字之和是素数 
+				if(iproduct!=0&&isprime(iproduct)){//判断该数所有数字之积是素数 
+				 	if(isprime(isquare)){//判断所有数字的平方和是素数 
+					 	count++;
+						sum=sum+i;
+						if(i>max){
+							max=i;
+						} 
+					} 
+				} 
+			}
+		}	
+	}
+	printf("%d %d %d",count,sum,max);
+	return 0;
+}
