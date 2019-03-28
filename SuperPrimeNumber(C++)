@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+int nummax=0,sum=0,count=0,m=0;
+int isprime(int m){	//构造判断素数函数 
+	int num=0,t;
+	for(t=2;t<m;t++){
+		if(m%t==0){
+			num++;
+		}
+	}
+	if(num==0){
+		return 1;
+	}
+	else{
+		return 0;
+	}	
+}
+
+class SuperPrime
+{
+public:
+	int number;
+	SuperPrime(int x);
+	int IsSuperPrime();
+	int Sum();
+	int Count();
+	int Max();
+}; 
+
+SuperPrime::SuperPrime(int x){
+	number=x;
+}
+
+int SuperPrime::IsSuperPrime(){
+	int i,b,s,g,isum,iproduct,isquare;
+	i=number;
+	b=i/100;
+	s=(i%100)/10;
+	g=i%10;
+	isum=b+s+g;
+	iproduct=b*s*g;
+	isquare=b*b+s*s+g*g;
+	if(isprime(i)){	//判断该数本身是素数 
+		if(isprime(isum)){	//判断该数所有数字之和是素数 
+			if(iproduct!=0&&isprime(iproduct)){	//判断该数所有数字之积是素数 
+			 	if(isprime(isquare)){	//判断所有数字的平方和是素数 
+			 		return 1;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+int SuperPrime::Count(){
+	if(IsSuperPrime()){
+		count++;
+	}
+}
+
+int SuperPrime::Sum(){
+	if(IsSuperPrime()){
+		sum=sum+number;
+	}
+}
+
+int SuperPrime::Max(){
+	if(IsSuperPrime()){
+		if(number>nummax){
+			nummax=number;
+		}
+	}
+}
+
+int main() 
+{
+	for(m=100;m<999;m++){
+		SuperPrime superprime(m);
+		superprime.Count();
+		superprime.Sum();
+		superprime.Max();
+	}
+	cout<<count<<" "<<sum<<" "<<nummax<<" "<<endl;
+	return 0;
+}
